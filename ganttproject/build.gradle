@@ -16,67 +16,77 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'maven-publish'
 
-
 ext {
     libDir = 'lib/core'
 }
 
-configurations {
-    exportedLibs
-    exported.extendsFrom archives, providedCompile, exportedLibs
-    direct
-    cloud {
-        attributes {
-            attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.LIBRARY))
-            attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
-            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling, Bundling.EXTERNAL))
-            attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, JavaVersion.current().majorVersion.toInteger())
-        }
-    }
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/kotlin'
+    main.java.srcDirs += 'src/main/myJava'
 }
 
-artifacts {
-    cloud jar
-}
 dependencies {
-    providedCompile project(path: ':biz.ganttproject.app.libs', configuration: 'exported')
     providedCompile project(path: ':biz.ganttproject.app.localization', configuration: 'exported')
 
-    exportedLibs files("lib/core/eclipsito.jar")
-    exportedLibs 'commons-codec:commons-codec:1.10'
-    exportedLibs 'org.apache.poi:poi:3.17'
+    implementation files("lib/core/eclipsito.jar")
+    implementation 'commons-codec:commons-codec:1.10'
+    implementation 'org.apache.poi:poi:3.17'
 
-    direct 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
-    direct 'org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.3.9'
-    direct "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    direct "com.google.guava:guava:25.+"
+    implementation 'ch.qos.logback:logback-classic:1.2.+'
+    implementation 'commons-codec:commons-codec:1.+'
+    implementation 'commons-io:commons-io:2.+'
 
-    cloud configurations.direct
-    compile configurations.direct
-    compile configurations.providedCompile
+    implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
+    implementation 'com.evanlennick:retry4j:0.+'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.11.+'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.+'
+    implementation 'com.jgoodies:jgoodies-common:1.8.+'
+    implementation 'com.jgoodies:jgoodies-looks:2.7.+'
+    implementation 'com.sandec:mdfx:0.+'
+    implementation 'com.squareup.okhttp3:okhttp:3.+'
 
-    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.3.1'
+    implementation 'de.jensd:fontawesomefx-commons:11.+'
+    implementation 'de.jensd:fontawesomefx-fontawesome:4.7.0-11'
+    implementation 'de.jensd:fontawesomefx-materialicons:2.2.0-11'
 
-    compile 'org.mnode.ical4j:ical4j:1.+'
+    implementation 'net.java.balloontip:balloontip:1.2.4.1'
+    implementation 'org.apache.commons:commons-lang3:3.+'
 
-    compile('net.sf.mpxj:mpxj:8.+') {
+    implementation 'org.apache.httpcomponents:httpclient:4.5.+'
+    implementation 'org.apache.httpcomponents:httpmime:4.5.+'
+    implementation 'org.apache.poi:poi:4.+'
+    implementation 'org.controlsfx:controlsfx:11.+'
+    implementation 'org.nanohttpd:nanohttpd:2.3.+'
+    implementation 'org.jdom:jdom:1.+'
+//    implementation 'org.swinglabs:swingx:3.0.4'
+//    implementation 'org.swinglabs.swingx:swingx-all:1.6.5-1'
+
+    implementation fileTree(dir: 'lib/', include: ['*.jar'])
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.3.9'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "com.google.guava:guava:25.+"
+
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.3.1'
+
+    implementation 'org.mnode.ical4j:ical4j:1.+'
+
+    implementation('net.sf.mpxj:mpxj:8.+') {
         exclude group: 'org.xerial', module: 'sqlite-jdbc'
         exclude group: 'com.jgoodies'
     }
-    compile 'javax.xml.bind:jaxb-api:2.3.+'
-    compile 'javax.xml:jaxb-impl:2.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.+'
+    implementation 'javax.xml:jaxb-impl:2.1'
 
-    compile configurations.direct
-    compile configurations.providedCompile
-    compile configurations.exportedLibs
-    compile fileTree(dir: project.ext.libDir, include: ['*.jar'])
+    implementation fileTree(dir: project.ext.libDir, include: ['*.jar'])
 
     testImplementation group: 'org.easymock', name: 'easymock', version: '4.+'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.+'
 
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.+'
 
-//    compile "de.jensd:fontawesomefx-materialicons:2.2.+"
+//    implementation "de.jensd:fontawesomefx-materialicons:2.2.+"
 }
 
 compileKotlin {
@@ -121,9 +131,6 @@ task copyPluginFiles(dependsOn: jar) {
             into(new File(rootProject.pluginsDir, "${project.name}/lib/"))
             from(jar.outputs.getFiles().getFiles().flatten())
             from(configurations.compileClasspath.minus(configurations.providedCompile.resolve())) {
-                include "*.jar"
-            }
-            from(configurations.direct) {
                 include "*.jar"
             }
             rename { filename -> filename + ".lib" }

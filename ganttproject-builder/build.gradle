@@ -2,7 +2,6 @@
 // Run gradle dependencyUpdates to get the report
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 
 // Path to launch4j binary
 ext.launch4j = '/opt/launch4j/launch4j'
@@ -34,7 +33,6 @@ clean {
 }
 
 task distBin(dependsOn: [
-        ':biz.ganttproject.app.libs:copyPlugin',
         ':biz.ganttproject.app.localization:copyPlugin',
         ':ganttproject:copyPlugin'
     ]) {

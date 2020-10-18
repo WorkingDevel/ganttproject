@@ -1,7 +1,6 @@
 rootProject.name = 'GanttProject'
-include 'biz.ganttproject.app.libs',
+include 'ganttproject',
     'biz.ganttproject.app.localization',
-    'ganttproject',
     'ganttproject-tester',
     'ganttproject-builder',
     'biz.ganttproject.mxgraph'
