@@ -24,10 +24,21 @@ ext {
 configurations {
     exportedLibs
     exported.extendsFrom archives, providedCompile, exportedLibs
+    direct
+    cloud {
+        attributes {
+            attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.LIBRARY))
+            attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling, Bundling.EXTERNAL))
+            attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, JavaVersion.current().majorVersion.toInteger())
+        }
+    }
 }
 
+artifacts {
+    cloud jar
+}
 dependencies {
-    providedCompile project(':biz.ganttproject.core')
     providedCompile project(path: ':biz.ganttproject.app.libs', configuration: 'exported')
     providedCompile project(path: ':biz.ganttproject.app.localization', configuration: 'exported')
 
@@ -37,6 +48,12 @@ dependencies {
 
     direct 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
     direct 'org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.3.9'
+    direct "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    direct "com.google.guava:guava:25.+"
+
+    cloud configurations.direct
+    compile configurations.direct
+    compile configurations.providedCompile
 
     compile group: 'com.itextpdf', name: 'itextpdf', version: '5.3.1'
 
@@ -104,6 +121,9 @@ task copyPluginFiles(dependsOn: jar) {
             into(new File(rootProject.pluginsDir, "${project.name}/lib/"))
             from(jar.outputs.getFiles().getFiles().flatten())
             from(configurations.compileClasspath.minus(configurations.providedCompile.resolve())) {
+                include "*.jar"
+            }
+            from(configurations.direct) {
                 include "*.jar"
             }
             rename { filename -> filename + ".lib" }

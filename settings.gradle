@@ -2,7 +2,6 @@ rootProject.name = 'GanttProject'
 include 'biz.ganttproject.app.libs',
     'biz.ganttproject.app.localization',
     'ganttproject',
-    'biz.ganttproject.core',
     'ganttproject-tester',
     'ganttproject-builder',
     'biz.ganttproject.mxgraph'

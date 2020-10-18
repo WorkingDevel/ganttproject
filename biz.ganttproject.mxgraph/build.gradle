@@ -11,7 +11,6 @@ buildscript {
 apply plugin: 'kotlin'
 
 dependencies {
-    providedCompile project(':biz.ganttproject.core')
     providedCompile project(':ganttproject')
 
     compile 'com.github.vlsi.mxgraph:jgraphx:4.1.+'

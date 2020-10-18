@@ -15,7 +15,6 @@
     </runtime>
     <requires>
         <import plugin="org.eclipse.core.runtime"/>
-        <import plugin="biz.ganttproject.core"/>
         <import plugin="biz.ganttproject.app.libs"/>
     </requires>
     <extension-point id="l10n" name="LocalizationBundle"/>
