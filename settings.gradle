@@ -5,7 +5,6 @@ include 'biz.ganttproject.app.libs',
     'biz.ganttproject.core',
     'biz.ganttproject.impex.ical',
     'biz.ganttproject.impex.msproject2',
-    'org.ganttproject.chart.pert',
     'ganttproject-tester',
     'ganttproject-builder',
     'biz.ganttproject.mxgraph'

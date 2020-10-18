@@ -82,6 +82,10 @@
         <searchservice class="net.sourceforge.ganttproject.search.ResourceSearchService"/>
     </extension>
 
+    <extension
+        point="net.sourceforge.ganttproject.chart">
+        <chart class="org.ganttproject.chart.pert.ActivityOnNodePertChart"/>
+    </extension>
 
     <!--   <extension point="net.sourceforge.ganttproject.chart">
              <exporter class="net.sourceforge.ganttproject.chart.TestChart"/>

@@ -39,8 +39,7 @@ task distBin(dependsOn: [
         ':biz.ganttproject.core:copyPlugin',
         ':ganttproject:copyPlugin',
         ':biz.ganttproject.impex.ical:copyPlugin',
-        ':biz.ganttproject.impex.msproject2:copyPlugin',
-        ':org.ganttproject.chart.pert:copyPlugin'
+        ':biz.ganttproject.impex.msproject2:copyPlugin'
     ]) {
     println "===== Building GanttProject ${version} ====="
     println "===== Building generic binary distro ====="
