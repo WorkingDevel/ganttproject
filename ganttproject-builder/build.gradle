@@ -38,7 +38,6 @@ task distBin(dependsOn: [
         ':biz.ganttproject.app.localization:copyPlugin',
         ':biz.ganttproject.core:copyPlugin',
         ':ganttproject:copyPlugin',
-        ':biz.ganttproject.impex.ical:copyPlugin',
         ':biz.ganttproject.impex.msproject2:copyPlugin'
     ]) {
     println "===== Building GanttProject ${version} ====="
