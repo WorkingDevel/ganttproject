@@ -39,6 +39,7 @@
         <exporter class="net.sourceforge.ganttproject.export.ExporterToCSV"/>
         <exporter class="net.sourceforge.ganttproject.impex.htmlpdf.ExporterToHTML"/>
         <exporter class="net.sourceforge.ganttproject.impex.htmlpdf.ExporterToPDF"/>
+        <exporter class="biz.ganttproject.impex.msproject2.ExporterToMsProjectFile"/>
     </extension>
 
     <extension point="net.sourceforge.ganttproject.impex.htmlpdf.HTMLStylesheet">
@@ -62,6 +63,7 @@
         <importer class="net.sourceforge.ganttproject.importer.ImporterFromTxtFile"/>
         <importer class="biz.ganttproject.impex.csv.ImporterFromCsvFile"/>
         <importer class="biz.ganttproject.impex.ical.IcsFileImporter"/>
+        <importer class="biz.ganttproject.impex.msproject2.ImporterFromMsProjectFile"/>
     </extension>
     <extension point="net.sourceforge.ganttproject.OptionPageProvider">
         <optionpageprovider class="biz.ganttproject.storage.cloud.ProjectPropertiesPageProvider"/>
