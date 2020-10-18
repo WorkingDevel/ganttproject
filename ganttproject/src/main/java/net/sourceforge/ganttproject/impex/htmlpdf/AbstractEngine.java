@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.ganttproject.impex.htmlpdf;
+package net.sourceforge.ganttproject.impex.htmlpdf;
 
 import net.sourceforge.ganttproject.IGanttProject;
 import net.sourceforge.ganttproject.chart.Chart;
@@ -26,7 +26,7 @@ import org.osgi.service.prefs.Preferences;
 
 /**
  * Simple base class for the rendering engines.
- * 
+ *
  * @author dbarashev (Dmitry Barashev)
  */
 public class AbstractEngine {

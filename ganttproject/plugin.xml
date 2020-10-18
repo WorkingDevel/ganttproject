@@ -24,6 +24,10 @@
     <extension-point id="chart" name="Chart"/>
     <extension-point id="OptionPageProvider" name="OptionPageProvider"/>
     <extension-point id="search" name="SearchService"/>
+    <extension-point id="impex.htmlpdf.HTMLStylesheet" name="HTML Stylesheet"/>
+    <extension-point id="impex.htmlpdf.PDFStylesheet" name="PDF Stylesheet"/>
+    <extension-point id="impex.htmlpdf.itext.ITextStylesheet" name="IText Stylesheet"/>
+    <extension-point id="impex.htmlpdf.FontDirectory" name="Font Directory"/>
 
     <extension point="org.eclipse.core.runtime.applications" id="GanttProject">
         <application>
@@ -33,7 +37,25 @@
     <extension point="net.sourceforge.ganttproject.exporter">
         <exporter class="net.sourceforge.ganttproject.export.ExporterToImage"/>
         <exporter class="net.sourceforge.ganttproject.export.ExporterToCSV"/>
+        <exporter class="net.sourceforge.ganttproject.impex.htmlpdf.ExporterToHTML"/>
+        <exporter class="net.sourceforge.ganttproject.impex.htmlpdf.ExporterToPDF"/>
     </extension>
+
+    <extension point="net.sourceforge.ganttproject.impex.htmlpdf.HTMLStylesheet">
+        <theme name="Samara" url="html-export-themes/samara/"/>
+        <theme name="Default theme" url="html-export-themes/default/"/>
+        <theme name="Striped Blue" url="html-export-themes/striped_blue/"/>
+    </extension>
+    <extension point="net.sourceforge.ganttproject.impex.htmlpdf.itext.ITextStylesheet">
+        <theme name="Sortavala" url="itext-export-themes/sortavala.txt"/>
+    </extension>
+    <extension point="net.sourceforge.ganttproject.impex.htmlpdf.FontDirectory">
+        <dir name="C:/windows/fonts" absolute="true"/>
+        <dir name="/usr/share/fonts/truetype" absolute="true"/>
+        <dir name="/System/Library/Fonts" absolute="true"/>
+        <dir name="fonts"/>
+    </extension>
+
     <extension
             point="net.sourceforge.ganttproject.importer">
         <importer class="net.sourceforge.ganttproject.importer.ImporterFromGanttFile"/>
@@ -59,6 +81,7 @@
         <searchservice class="net.sourceforge.ganttproject.search.TaskSearchService"/>
         <searchservice class="net.sourceforge.ganttproject.search.ResourceSearchService"/>
     </extension>
+
 
     <!--   <extension point="net.sourceforge.ganttproject.chart">
              <exporter class="net.sourceforge.ganttproject.chart.TestChart"/>

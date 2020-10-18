@@ -38,6 +38,7 @@ dependencies {
     direct 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
     direct 'org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.3.9'
 
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.3.1'
 
     compile configurations.direct
     compile configurations.providedCompile
@@ -85,11 +86,15 @@ task copyPluginFiles(dependsOn: jar) {
                 include "resources/xslfo/**"
                 include "resources/xslt/**"
             }
+            from(fileTree("src/main/resources/html-exporter")) {
+                include "**"
+                into "resources/"
+            }
         }
         copy {
             into(new File(rootProject.pluginsDir, "${project.name}/lib/"))
             from(jar.outputs.getFiles().getFiles().flatten())
-            from(configurations.compileClasspath.minus(configurations.providedCompile)) {
+            from(configurations.compileClasspath.minus(configurations.providedCompile.resolve())) {
                 include "*.jar"
             }
             rename { filename -> filename + ".lib" }

@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.ganttproject.impex.htmlpdf;
+package net.sourceforge.ganttproject.impex.htmlpdf;
 
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -33,7 +33,6 @@ import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
 import net.sourceforge.ganttproject.GPLogger;
-import net.sourceforge.ganttproject.GanttExportSettings;
 import net.sourceforge.ganttproject.export.ExportException;
 import net.sourceforge.ganttproject.util.FileUtil;
 

@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.ganttproject.impex.htmlpdf.itext;
+package net.sourceforge.ganttproject.impex.htmlpdf.itext;
 
 import java.awt.Font;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.ganttproject.impex.htmlpdf.fonts.TTFontCache;
+import net.sourceforge.ganttproject.impex.htmlpdf.fonts.TTFontCache;
 import org.osgi.service.prefs.Preferences;
 
 public class FontSubstitutionModel {

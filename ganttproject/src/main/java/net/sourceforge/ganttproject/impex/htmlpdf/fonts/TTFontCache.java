@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.ganttproject.impex.htmlpdf.fonts;
+package net.sourceforge.ganttproject.impex.htmlpdf.fonts;
 
 import com.google.common.base.Function;
 import com.google.common.base.Supplier;
@@ -27,8 +27,8 @@ import com.itextpdf.text.pdf.BaseFont;
 import net.sourceforge.ganttproject.GPLogger;
 import net.sourceforge.ganttproject.language.GanttLanguage;
 import org.eclipse.core.runtime.Platform;
-import org.ganttproject.impex.htmlpdf.itext.FontSubstitutionModel;
-import org.ganttproject.impex.htmlpdf.itext.FontSubstitutionModel.FontSubstitution;
+import net.sourceforge.ganttproject.impex.htmlpdf.itext.FontSubstitutionModel;
+import net.sourceforge.ganttproject.impex.htmlpdf.itext.FontSubstitutionModel.FontSubstitution;
 
 import java.awt.*;
 import java.io.File;

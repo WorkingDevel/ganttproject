@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.ganttproject.impex.htmlpdf.itext;
+package net.sourceforge.ganttproject.impex.htmlpdf.itext;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -47,11 +47,11 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.ganttproject.impex.htmlpdf.AbstractEngine;
-import org.ganttproject.impex.htmlpdf.ExporterToPDF;
-import org.ganttproject.impex.htmlpdf.Stylesheet;
-import org.ganttproject.impex.htmlpdf.StylesheetFactoryImpl;
-import org.ganttproject.impex.htmlpdf.fonts.TTFontCache;
+import net.sourceforge.ganttproject.impex.htmlpdf.AbstractEngine;
+import net.sourceforge.ganttproject.impex.htmlpdf.ExporterToPDF;
+import net.sourceforge.ganttproject.impex.htmlpdf.Stylesheet;
+import net.sourceforge.ganttproject.impex.htmlpdf.StylesheetFactoryImpl;
+import net.sourceforge.ganttproject.impex.htmlpdf.fonts.TTFontCache;
 import org.osgi.service.prefs.Preferences;
 
 import biz.ganttproject.core.option.GPOptionGroup;
@@ -108,7 +108,7 @@ public class ITextEngine extends AbstractEngine {
     waitRegisterFonts();
     myStylesheet = (ITextStylesheet) stylesheet;
     if (getPreferences() != null) {
-      Preferences node = getPreferences().node("/configuration/org.ganttproject.impex.htmlpdf/font-substitution");
+      Preferences node = getPreferences().node("/configuration/net.sourceforge.ganttproject.impex.htmlpdf/font-substitution");
       mySubstitutionModel = new FontSubstitutionModel(myFontCache, myStylesheet, node);
       myStylesheet.setFontSubstitutionModel(mySubstitutionModel);
     }
@@ -179,7 +179,7 @@ public class ITextEngine extends AbstractEngine {
   protected void registerFontDirectories() {
     myFontCache.registerDirectory(System.getProperty("java.home") + "/lib/fonts");
     IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-    IConfigurationElement[] configElements = extensionRegistry.getConfigurationElementsFor("org.ganttproject.impex.htmlpdf.FontDirectory");
+    IConfigurationElement[] configElements = extensionRegistry.getConfigurationElementsFor("net.sourceforge.ganttproject.impex.htmlpdf.FontDirectory");
     for (int i = 0; i < configElements.length; i++) {
       final String dirName = configElements[i].getAttribute("name");
       if (Boolean.TRUE.toString().equalsIgnoreCase(configElements[i].getAttribute("absolute"))) {

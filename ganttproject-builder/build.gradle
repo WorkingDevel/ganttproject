@@ -40,8 +40,7 @@ task distBin(dependsOn: [
         ':ganttproject:copyPlugin',
         ':biz.ganttproject.impex.ical:copyPlugin',
         ':biz.ganttproject.impex.msproject2:copyPlugin',
-        ':org.ganttproject.chart.pert:copyPlugin',
-        ':org.ganttproject.impex.htmlpdf:copyPlugin'
+        ':org.ganttproject.chart.pert:copyPlugin'
     ]) {
     println "===== Building GanttProject ${version} ====="
     println "===== Building generic binary distro ====="
@@ -160,6 +159,7 @@ task runApp(type: JavaExec, dependsOn: distBin) {
     args '--verbosity', '4', '--app', 'net.sourceforge.ganttproject.GanttProject', '--version-dirs', "plugins"
     jvmArgs '-ea'
 }
+
 task debugApp(type: JavaExec, dependsOn: distBin) {
     workingDir = 'dist-bin'
     classpath = (fileTree(dir: 'dist-bin', includes: ['eclipsito.jar']) + files('dist-bin'))

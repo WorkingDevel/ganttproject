@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-package org.ganttproject.impex.htmlpdf;
+package net.sourceforge.ganttproject.impex.htmlpdf;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -94,15 +94,15 @@ public abstract class StylesheetExporterBase extends ExporterBase {
       List<Stylesheet> stylesheets = getStylesheets();
 
       // Set the first entry of list as default
-      setSelectedStylesheet(stylesheets.get(0));                      
+      setSelectedStylesheet(stylesheets.get(0));
 
       // Test if a style is present in the arguments from command line
       // Iterate the list of style sheets to find it
       if (getPreferences().get("stylesheet", null) != null) {
         for (Stylesheet sheet : stylesheets) {
           if (sheet.getLocalizedName().compareTo(getPreferences().get("stylesheet", null)) == 0) {
-            setSelectedStylesheet(sheet);                      
-            break;                          
+            setSelectedStylesheet(sheet);
+            break;
           }
         }
       }
