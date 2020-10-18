@@ -1,6 +1,10 @@
 // This installs dependencyUpdates plugin
 // Run gradle dependencyUpdates to get the report
 
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+}
+
 apply plugin: 'java'
 
 // Path to launch4j binary

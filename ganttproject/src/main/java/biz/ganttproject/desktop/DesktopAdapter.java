@@ -1,14 +1,8 @@
 // Copyright (C) 2018 BarD Software
 package biz.ganttproject.desktop;
 
-import java.awt.desktop.AboutEvent;
-import java.awt.desktop.AboutHandler;
-import java.awt.desktop.OpenFilesEvent;
-import java.awt.desktop.OpenFilesHandler;
-import java.awt.desktop.PreferencesEvent;
-import java.awt.desktop.PreferencesHandler;
-import java.awt.desktop.QuitEvent;
-import java.awt.desktop.QuitHandler;
+import java.awt.*;
+import java.awt.desktop.*;
 import java.io.File;
 import java.util.List;
 
