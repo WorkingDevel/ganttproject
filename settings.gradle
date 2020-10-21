@@ -2,5 +2,4 @@ rootProject.name = 'GanttProject'
 include 'ganttproject',
     'biz.ganttproject.app.localization',
     'ganttproject-tester',
-    'ganttproject-builder',
     'biz.ganttproject.mxgraph'

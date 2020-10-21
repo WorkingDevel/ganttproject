@@ -1,4 +1,3 @@
 rootProject.buildFileName = "package.gradle"
 include 'ganttproject',
-    'ganttproject-tester',
-    'ganttproject-builder'
+    'ganttproject-tester'
