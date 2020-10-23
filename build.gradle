@@ -16,8 +16,6 @@ buildscript {
 ext.launch4j = '/opt/launch4j/launch4j'
 // Directories where we build the distro
 ext.semver = '2.99'
-ext.distBinDir = file('ganttproject-builder/dist-bin')
-ext.pluginsDir = file("ganttproject-builder/dist-bin/plugins/base")
 ext.buildNum = getBuildNum()
 
 version = "${semver}-r${getBuildNum()}"
@@ -58,6 +56,10 @@ allprojects {
             force "org.openjfx:javafx-base:${versions.javafx}"
             force "org.openjfx:javafx-graphics:${versions.javafx}"
             force "org.openjfx:javafx-controls:${versions.javafx}"
+            force "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.kotlin}"
+            force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+            force "org.jetbrains.kotlin:kotlin-stdlib-core:${versions.kotlin}"
+            force "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlin_coroutines}"
 
             failOnVersionConflict()
         }
