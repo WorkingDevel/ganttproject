@@ -18,14 +18,13 @@ along with GanttProject.  If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sourceforge.ganttproject.importer;
 
-import java.io.File;
-
-import org.osgi.service.prefs.Preferences;
-
 import biz.ganttproject.core.option.GPOptionGroup;
 import net.sourceforge.ganttproject.IGanttProject;
 import net.sourceforge.ganttproject.gui.UIFacade;
 import net.sourceforge.ganttproject.wizard.WizardPage;
+import org.osgi.service.prefs.Preferences;
+
+import java.io.File;
 
 public interface Importer {
   String getID();

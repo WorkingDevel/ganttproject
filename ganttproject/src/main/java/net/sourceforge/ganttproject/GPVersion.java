@@ -18,8 +18,6 @@ along with GanttProject.  If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sourceforge.ganttproject;
 
-import static org.eclipse.core.runtime.Platform.getUpdater;
-
 public abstract class GPVersion {
   public static String BUILD = "2906"; // BUILD NUMBER
   public static String V2_0_1 = "2.0.1";
@@ -61,11 +59,7 @@ public abstract class GPVersion {
 //  public static String CURRENT = DEV;
 
   public static String getCurrentVersionNumber() {
-    var updater = getUpdater();
-    var version = updater == null
-        ? null : updater.getInstalledUpdateVersions().stream().max(String::compareTo)
-        .orElse(null);
-    return version == null ? String.format("2.99.%s", BUILD) : version;
+    return String.format("2.99.%s", BUILD);
   }
 
   public static String getCurrentBuildNumber() {

@@ -32,6 +32,7 @@ import net.sourceforge.ganttproject.chart.ChartSelectionListener;
 import net.sourceforge.ganttproject.task.TaskManager;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.pf4j.Extension;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,6 +40,7 @@ import java.util.Date;
 
 import static net.sourceforge.ganttproject.gui.UIFacade.DEFAULT_DPI;
 
+@Extension
 public abstract class PertChart extends JPanel implements Chart {
   /** Task manager used to build PERT chart. It provides data. */
   TaskManager myTaskManager;

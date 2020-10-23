@@ -18,6 +18,7 @@ along with GanttProject.  If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sourceforge.ganttproject.plugins;
 
+import net.projectagain.ganttplanner.app.App;
 import net.sourceforge.ganttproject.GPLogger;
 import net.sourceforge.ganttproject.chart.Chart;
 import net.sourceforge.ganttproject.export.Exporter;
@@ -35,15 +36,6 @@ import java.util.List;
  * @author bbaranne
  */
 public class PluginManager {
-
-  private static final String EXTENSION_POINT_ID_CHART = "net.sourceforge.ganttproject.chart";
-
-  private static final String EXTENSION_POINT_ID_EXPORTER = "net.sourceforge.ganttproject.exporter";
-
-  private static List<Chart> myCharts;
-
-  private static List<Exporter> myExporters;
-
   public static <T> List<T> getExtensions(String extensionPointID, Class<T> extensionPointInterface) {
     IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
     GPLogger.log("extensionregistry: " + extensionRegistry);
@@ -65,21 +57,10 @@ public class PluginManager {
   }
 
   public static List<Chart> getCharts() {
-    if (myCharts == null) {
-      myCharts = getExtensions(EXTENSION_POINT_ID_CHART, Chart.class);
-    }
-    return myCharts;
-  }
-
-  public static void setCharts(List<Chart> charts) {
-    myCharts = charts;
+    return App.getInstance().getCharts();
   }
 
   public static List<Exporter> getExporters() {
-    if (myExporters == null) {
-      myExporters = getExtensions(EXTENSION_POINT_ID_EXPORTER, Exporter.class);
-    }
-    return myExporters;
-
+    return App.getInstance().getExporters();
   }
 }

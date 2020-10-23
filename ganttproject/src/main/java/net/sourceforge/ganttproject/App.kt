@@ -29,33 +29,30 @@ import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import java.lang.Thread.UncaughtExceptionHandler
 import java.util.*
-import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
 import javax.swing.SwingUtilities
 
-
+@Deprecated("no more needed with projectagain")
 fun main(args: Array<String>) {
   val mainArgs = GanttProject.Args()
   JCommander(arrayOf<Any>(mainArgs), *args)
   GPLogger.init()
   RootLocalizer = SingleTranslationLocalizer(ResourceBundle.getBundle("i18n"))
-  PluginManager.setCharts(listOf())
   GanttLanguage.getInstance()
   startUiApp(mainArgs) {
-    it.setUpdater {
-      CompletableFuture.completedFuture(listOf())
-    }
   }
 }
 
+@Deprecated("no more needed with projectagain")
 val mainWindow = AtomicReference<GanttProject?>(null)
 
 /**
  * @author dbarashev@bardsoftware.com
  */
 @JvmOverloads
+@Deprecated("no more needed with projectagain")
 fun startUiApp(args: GanttProject.Args, configure: (GanttProject) -> Unit = {}) {
   val autosaveCleanup = DocumentCreator.createAutosaveCleanup()
 
@@ -93,6 +90,8 @@ fun startUiApp(args: GanttProject.Args, configure: (GanttProject) -> Unit = {}) 
   }
 }
 
+@Deprecated("no more needed with projectagain")
 private val ourExecutor: ExecutorService = Executors.newSingleThreadExecutor()
+@Deprecated("no more needed with projectagain")
 val APP_LOGGER = GPLogger.create("App")
 

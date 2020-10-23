@@ -398,7 +398,7 @@ abstract class GanttProjectBase extends JFrame implements IGanttProject, UIFacad
     return myResourceCustomPropertyManager;
   }
 
-  protected void setUpdater(Updater updater) {
+  public void setUpdater(Updater updater) {
     myUpdater = updater;
   }
 

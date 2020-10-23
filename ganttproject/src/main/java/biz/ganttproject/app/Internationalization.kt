@@ -22,7 +22,6 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.beans.value.ObservableValue
 import net.sourceforge.ganttproject.GPLogger
 import net.sourceforge.ganttproject.util.PropertiesUtil
-import org.eclipse.core.runtime.Platform
 import java.text.MessageFormat
 import java.util.*
 
@@ -39,10 +38,11 @@ import java.util.*
  * Normally instances are created with a factory in Localizer.
  */
 class LocalizedString(
-    private val key: String,
-    private val i18n: Localizer,
-    private val observable: SimpleStringProperty = SimpleStringProperty(),
-    private var args: List<String> = emptyList()) : ObservableValue<String> by observable {
+  private val key: String,
+  private val i18n: Localizer,
+  private val observable: SimpleStringProperty = SimpleStringProperty(),
+  private var args: List<String> = emptyList()
+) : ObservableValue<String> by observable {
   init {
     observable.value = build()
   }
@@ -112,10 +112,11 @@ object DummyLocalizer : Localizer {
  * @author dbarashev@bardsoftware.com
  */
 open class DefaultLocalizer(
-    private val rootKey: String = "",
-    private val baseLocalizer: Localizer = DummyLocalizer,
-    private val prefixedLocalizer: Localizer? = null,
-    private val currentTranslation: () -> ResourceBundle? = { null }) : Localizer {
+  private val rootKey: String = "",
+  private val baseLocalizer: Localizer = DummyLocalizer,
+  private val prefixedLocalizer: Localizer? = null,
+  private val currentTranslation: () -> ResourceBundle? = { null }
+) : Localizer {
   override fun create(key: String): LocalizedString {
     return LocalizedString(key, this)
   }
@@ -142,15 +143,15 @@ open class DefaultLocalizer(
    * Creates a new localizer which uses this one as "prefixed" with the given prefix.
    */
   fun createWithRootKey(rootKey: String, baseLocalizer: Localizer = DummyLocalizer): DefaultLocalizer =
-      DefaultLocalizer(rootKey, baseLocalizer, this, this.currentTranslation)
+    DefaultLocalizer(rootKey, baseLocalizer, this, this.currentTranslation)
 }
 
 /**
  * Localizer which always uses the given resource bundle.
  */
-class SingleTranslationLocalizer(val bundle: ResourceBundle) : DefaultLocalizer(currentTranslation = {bundle})
+class SingleTranslationLocalizer(val bundle: ResourceBundle) : DefaultLocalizer(currentTranslation = { bundle })
 
-var RootLocalizer : DefaultLocalizer = DefaultLocalizer(currentTranslation = { ourCurrentTranslation })
+var RootLocalizer: DefaultLocalizer = DefaultLocalizer(currentTranslation = { ourCurrentTranslation })
 
 private var ourCurrentTranslation: ResourceBundle? = getResourceBundle(Locale.getDefault(), true)
 fun setLocale(locale: Locale) {
@@ -159,28 +160,21 @@ fun setLocale(locale: Locale) {
 }
 
 private fun getResourceBundle(locale: Locale, withFallback: Boolean): ResourceBundle? {
-  return Platform.getExtensionRegistry()?.getConfigurationElementsFor("net.sourceforge.ganttproject.l10n")
-      ?.mapNotNull { l10nConfig ->
-        val path = l10nConfig.getAttribute("path")
-        val pluginBundle = Platform.getBundle(l10nConfig.declaringExtension.namespaceIdentifier)
-            ?: error("Can't find plugin bundle for extension=" + l10nConfig.name)
-        try {
-          val control = if (withFallback)
-            ResourceBundle.Control.getControl(ResourceBundle.Control.FORMAT_PROPERTIES)
-          else
-            ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
-          val resourceBundle = ResourceBundle.getBundle(path, locale, pluginBundle.bundleClassLoader, control)
-          if (withFallback || resourceBundle.locale == locale) {
-            resourceBundle
-          } else {
-            null
-          }
-        } catch (ex: MissingResourceException) {
-          GPLogger.logToLogger(String.format("Can't find bundle: path=%s locale=%s plugin bundle=%s", path, locale, pluginBundle))
-          null
-        }
-      }
-      ?.firstOrNull()
+  return try {
+    val control = if (withFallback)
+      ResourceBundle.Control.getControl(ResourceBundle.Control.FORMAT_PROPERTIES)
+    else
+      ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
+    val resourceBundle = ResourceBundle.getBundle("i18n", locale, RootLocalizer::class.java.classLoader, control)
+    if (withFallback || resourceBundle.locale == locale) {
+      resourceBundle
+    } else {
+      null
+    }
+  } catch (ex: MissingResourceException) {
+    GPLogger.logToLogger(String.format("Can't find bundle: path=%s locale=i18n plugin", locale))
+    null
+  }
 }
 
 private val extraLocales = Properties().also {
@@ -189,7 +183,7 @@ private val extraLocales = Properties().also {
 
 private val LEXICOGRAPHICAL_LOCALE_COMPARATOR: Comparator<Locale> = Comparator { o1, o2 ->
   (o1.getDisplayLanguage(Locale.US) + o1.getDisplayCountry(Locale.US)).compareTo(
-      o2.getDisplayLanguage(Locale.US) + o2.getDisplayCountry(Locale.US)
+    o2.getDisplayLanguage(Locale.US) + o2.getDisplayCountry(Locale.US)
   )
 }
 

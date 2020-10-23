@@ -30,9 +30,9 @@ import javafx.scene.image.ImageView
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import javafx.scene.layout.Region
+import net.sourceforge.ganttproject.GPVersion
 import net.sourceforge.ganttproject.GanttProject
 import org.apache.commons.lang3.StringEscapeUtils
-import org.eclipse.core.runtime.Platform
 import java.time.LocalDateTime
 
 /**
@@ -42,7 +42,7 @@ import java.time.LocalDateTime
  */
 fun showAboutDialog() {
   dialog(title = LocalizedString("about.title", RootLocalizer)) { dialogApi ->
-    val installedVersion = Platform.getUpdater()?.installedUpdateVersions?.maxOrNull() ?: "3.0"
+    val installedVersion = GPVersion.getCurrentVersionNumber()
     dialogApi.addStyleClass("dlg-platform-update")
     dialogApi.addStyleSheet(
         "/biz/ganttproject/platform/Update.css",

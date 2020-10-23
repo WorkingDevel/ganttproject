@@ -233,6 +233,6 @@ public class GanttStatusBar extends JPanel {
   }
 
   public void setNotificationManager(NotificationManagerImpl notificationManager) {
-    add(notificationManager.getChannelButtons(), BorderLayout.EAST);
+//    add(notificationManager.getChannelButtons(), BorderLayout.EAST);
   }
 }

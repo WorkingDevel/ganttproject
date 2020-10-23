@@ -29,8 +29,6 @@ import biz.ganttproject.core.option.ChangeValueListener;
 import biz.ganttproject.core.option.ColorOption;
 import biz.ganttproject.core.option.DefaultColorOption;
 import biz.ganttproject.core.time.TimeUnitStack;
-import biz.ganttproject.platform.UpdateKt;
-import biz.ganttproject.platform.UpdateOptions;
 import biz.ganttproject.storage.cloud.GPCloudOptions;
 import biz.ganttproject.storage.cloud.GPCloudStatusBar;
 import com.beust.jcommander.JCommander;
@@ -39,12 +37,7 @@ import com.google.common.collect.Lists;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Scene;
-import net.sourceforge.ganttproject.action.ActiveActionProvider;
-import net.sourceforge.ganttproject.action.ArtefactAction;
-import net.sourceforge.ganttproject.action.ArtefactDeleteAction;
-import net.sourceforge.ganttproject.action.ArtefactNewAction;
-import net.sourceforge.ganttproject.action.ArtefactPropertiesAction;
-import net.sourceforge.ganttproject.action.GPAction;
+import net.sourceforge.ganttproject.action.*;
 import net.sourceforge.ganttproject.action.edit.EditMenu;
 import net.sourceforge.ganttproject.action.help.HelpMenu;
 import net.sourceforge.ganttproject.action.project.ProjectMenu;
@@ -58,12 +51,7 @@ import net.sourceforge.ganttproject.chart.TimelineChart;
 import net.sourceforge.ganttproject.document.Document;
 import net.sourceforge.ganttproject.document.Document.DocumentException;
 import net.sourceforge.ganttproject.export.CommandLineExportApplication;
-import net.sourceforge.ganttproject.gui.NotificationManager;
-import net.sourceforge.ganttproject.gui.ResourceTreeUIFacade;
-import net.sourceforge.ganttproject.gui.TaskTreeUIFacade;
-import net.sourceforge.ganttproject.gui.UIConfiguration;
-import net.sourceforge.ganttproject.gui.UIFacade;
-import net.sourceforge.ganttproject.gui.UIUtil;
+import net.sourceforge.ganttproject.gui.*;
 import net.sourceforge.ganttproject.gui.scrolling.ScrollingManager;
 import net.sourceforge.ganttproject.importer.Importer;
 import net.sourceforge.ganttproject.io.GPSaver;
@@ -79,22 +67,15 @@ import net.sourceforge.ganttproject.resource.HumanResourceManager;
 import net.sourceforge.ganttproject.resource.ResourceEvent;
 import net.sourceforge.ganttproject.resource.ResourceView;
 import net.sourceforge.ganttproject.roles.RoleManager;
-import net.sourceforge.ganttproject.task.CustomColumnsStorage;
-import net.sourceforge.ganttproject.task.TaskContainmentHierarchyFacade;
-import net.sourceforge.ganttproject.task.TaskManager;
-import net.sourceforge.ganttproject.task.TaskManagerConfig;
-import net.sourceforge.ganttproject.task.TaskManagerImpl;
+import net.sourceforge.ganttproject.task.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -111,6 +92,8 @@ import java.util.regex.Pattern;
  * Main frame of the project
  */
 public class GanttProject extends GanttProjectBase implements ResourceView, GanttLanguage.Listener {
+
+  private final Logger log = LoggerFactory.getLogger(getClass());
 
   /**
    * The JTree part.
@@ -203,7 +186,7 @@ public class GanttProject extends GanttProjectBase implements ResourceView, Gant
       setTitle("GanttViewer");
     }
     setFocusable(true);
-    System.err.println("1. loading look'n'feels");
+    log.trace("1. loading look'n'feels");
     options = new GanttOptions(getRoleManager(), getDocumentManager(), isOnlyViewer);
     myUIConfiguration = options.getUIConfiguration();
     myUIConfiguration.setChartFontOption(getUiFacadeImpl().getChartFontOption());
@@ -277,7 +260,6 @@ public class GanttProject extends GanttProjectBase implements ResourceView, Gant
     options.addOptionGroups(getDocumentManager().getNetworkOptionGroups());
     options.addOptions(GPCloudOptions.INSTANCE.getOptionGroup());
     options.addOptions(getRssFeedChecker().getOptions());
-    options.addOptions(UpdateOptions.INSTANCE.getOptionGroup());
 
     System.err.println("2. loading options");
     initOptions();
@@ -656,7 +638,7 @@ public class GanttProject extends GanttProjectBase implements ResourceView, Gant
     return builder.build();
   }
 
-  void doShow() {
+  public void doShow() {
     setVisible(true);
     GPLogger.log(String.format("Bounds after setVisible: %s", getBounds()));
     DesktopIntegration.setup(GanttProject.this);
@@ -664,7 +646,6 @@ public class GanttProject extends GanttProjectBase implements ResourceView, Gant
     getRssFeedChecker().setOptionsVersion(getGanttOptions().getVersion());
     getRssFeedChecker().run();
 
-    UpdateKt.checkAvailableUpdates(getUpdater(), getUIFacade());
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
   }
 
@@ -949,10 +930,7 @@ public class GanttProject extends GanttProjectBase implements ResourceView, Gant
     }
 
 
-    AppKt.startUiApp(mainArgs, ganttProject -> {
-      ganttProject.setUpdater(org.eclipse.core.runtime.Platform.getUpdater());
-      return null;
-    });
+    AppKt.startUiApp(mainArgs, ganttProject -> null);
     return true;
   }
 

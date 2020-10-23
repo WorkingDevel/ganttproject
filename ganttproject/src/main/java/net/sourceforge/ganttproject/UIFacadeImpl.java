@@ -18,25 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package net.sourceforge.ganttproject;
 
-import biz.ganttproject.core.option.ChangeValueEvent;
-import biz.ganttproject.core.option.ChangeValueListener;
-import biz.ganttproject.core.option.DefaultBooleanOption;
-import biz.ganttproject.core.option.DefaultEnumerationOption;
-import biz.ganttproject.core.option.DefaultFileOption;
-import biz.ganttproject.core.option.DefaultFontOption;
-import biz.ganttproject.core.option.DefaultIntegerOption;
-import biz.ganttproject.core.option.DefaultStringOption;
-import biz.ganttproject.core.option.FontOption;
-import biz.ganttproject.core.option.FontSpec;
+import biz.ganttproject.core.option.*;
 import biz.ganttproject.core.option.FontSpec.Size;
-import biz.ganttproject.core.option.GPOption;
-import biz.ganttproject.core.option.GPOptionGroup;
-import biz.ganttproject.core.option.IntegerOption;
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.google.common.base.Strings;
-import com.google.common.base.Supplier;
-import com.google.common.base.Suppliers;
+import com.google.common.base.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.sourceforge.ganttproject.action.resource.AssignmentToggleAction;
@@ -45,18 +30,7 @@ import net.sourceforge.ganttproject.chart.Chart;
 import net.sourceforge.ganttproject.chart.GanttChart;
 import net.sourceforge.ganttproject.chart.TimelineChart;
 import net.sourceforge.ganttproject.document.Document.DocumentException;
-import net.sourceforge.ganttproject.gui.GanttLookAndFeelInfo;
-import net.sourceforge.ganttproject.gui.GanttLookAndFeels;
-import net.sourceforge.ganttproject.gui.GanttStatusBar;
-import net.sourceforge.ganttproject.gui.NotificationChannel;
-import net.sourceforge.ganttproject.gui.NotificationItem;
-import net.sourceforge.ganttproject.gui.NotificationManager;
-import net.sourceforge.ganttproject.gui.NotificationManagerImpl;
-import net.sourceforge.ganttproject.gui.ResourceTreeUIFacade;
-import net.sourceforge.ganttproject.gui.TaskSelectionContext;
-import net.sourceforge.ganttproject.gui.TaskTreeUIFacade;
-import net.sourceforge.ganttproject.gui.UIFacade;
-import net.sourceforge.ganttproject.gui.ViewLogDialog;
+import net.sourceforge.ganttproject.gui.*;
 import net.sourceforge.ganttproject.gui.options.OptionsPageBuilder;
 import net.sourceforge.ganttproject.gui.options.OptionsPageBuilder.I18N;
 import net.sourceforge.ganttproject.gui.options.SettingsDialog2;
@@ -86,14 +60,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 class UIFacadeImpl extends ProgressProvider implements UIFacade {
@@ -164,7 +132,7 @@ class UIFacadeImpl extends ProgressProvider implements UIFacade {
     myStatusBar = statusBar;
     myStatusBar.setNotificationManager(notificationManager);
     myFallbackDelegate = fallbackDelegate;
-    Job.getJobManager().setProgressProvider(this);
+
     myTaskSelectionManager = new TaskSelectionManager(Suppliers.memoize(new Supplier<TaskManager>() {
       public TaskManager get() {
         return project.getTaskManager();
@@ -525,22 +493,18 @@ class UIFacadeImpl extends ProgressProvider implements UIFacade {
     myMainFrame.setTitle(title);
   }
 
-  @Override
   public IProgressMonitor createMonitor(Job job) {
     return myStatusBar.createProgressMonitor();
   }
 
-  @Override
   public IProgressMonitor createProgressGroup() {
     return myStatusBar.createProgressMonitor();
   }
 
-  @Override
   public IProgressMonitor createMonitor(Job job, IProgressMonitor group, int ticks) {
     return group;
   }
 
-  @Override
   public IProgressMonitor getDefaultMonitor() {
     return null;
   }
