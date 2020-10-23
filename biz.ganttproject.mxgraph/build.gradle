@@ -1,14 +1,17 @@
 buildscript {
-    ext.kotlin_version = '1.4.+'
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
     }
 }
 
 apply plugin: 'kotlin'
+
+configurations {
+    all*.exclude module: "commons-logging"
+}
 
 dependencies {
     providedCompile project(':ganttproject')
