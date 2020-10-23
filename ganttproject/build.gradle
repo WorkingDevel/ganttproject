@@ -44,7 +44,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
     implementation 'org.apache.commons:commons-csv:1.1'
     implementation ':commons-net-ftpclient:3.0.1'
-
+    implementation 'com.github.vlsi.mxgraph:jgraphx:4.1.+'
 
     implementation 'ch.qos.logback:logback-classic:1.2.+'
     implementation 'commons-codec:commons-codec:1.+'
