@@ -26,6 +26,15 @@ configurations {
     exported.extendsFrom archives, providedCompile, exportedLibs
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/java", "src/main/resources"]
+            include "**/*.css", "**/*.properties"
+        }
+    }
+}
+
 dependencies {
     providedCompile project(':biz.ganttproject.core')
     providedCompile project(path: ':biz.ganttproject.app.libs', configuration: 'exported')
